@@ -1,12 +1,21 @@
 var url = '/examples/rpc';
 var $content = $('.content');
 var getVehicleInformation = function() {
+  var MAX_SPEED = 80;
+  var MIN_SPEED = 40;
+  var $userSpeedContainer =
+    document.querySelector(".user-speed-container");
+  var randSpeed = Math.floor
+    (Math.random() * (MAX_SPEED - MIN_SPEED)) + MIN_SPEED;
+
   $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: url,
-    contentType: 'application/json',
     xhrFields: {
       withCredentials: false
+    },
+    data: {
+      'speed': randSpeed
     },
     success: function(response) {
       $('.content .names').html("Vehicle Names: " + response.names);
@@ -19,7 +28,7 @@ getVehicleInformation();
 
 var pollServer = function() {
   setInterval(function() {
-    getVehicleInformation();
+    //getVehicleInformation();
   }, 1000);
 };
 

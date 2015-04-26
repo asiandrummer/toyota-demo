@@ -28,7 +28,7 @@ getVehicleInformation();
 
 var pollServer = function() {
   setInterval(function() {
-    //getVehicleInformation();
+    getVehicleInformation();
   }, 1000);
 };
 

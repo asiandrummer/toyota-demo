@@ -1,6 +1,6 @@
 var url = '/examples/rpc';
 var $content = $('.content');
-var getVehicleInformation = function() {
+var getVehicleInformation = function(alertPressed) {
   var MAX_SPEED = 80;
   var MIN_SPEED = 40;
   var $userSpeedContainer =
@@ -8,42 +8,39 @@ var getVehicleInformation = function() {
   var randSpeed = Math.floor
     (Math.random() * (MAX_SPEED - MIN_SPEED)) + MIN_SPEED;
 
-  $.ajax({
+  var promise = $.ajax({
     type: 'POST',
     url: url,
+    dataType: 'text',
     xhrFields: {
       withCredentials: false
     },
-    data: {
-      'speed': randSpeed
-    },
+    data: randSpeed + "," + alertPressed,
     success: function(response) {
-      $('.content .names').html("Vehicle Names: " + response.names);
-      $('.content .average-speed').html("Average Speed: " + response.average_speed);
+      console.log(response);
+      response = JSON.parse(response);
+      $('.content .names').html("vehicle names: " + response.names);
+      $('.content .average-speed').html("average speed: " + response.average_speed);
+      if (response.hasAlert == "true") {
+        response.alertMessage && $('.status').html(response.alertMessage);
+      }
+    },
+    error: function(response, t, e) {
+      console.log(e);
     }
   });
 };
 
-getVehicleInformation();
+$('.panic-button').click(function(e) {
+  getVehicleInformation("true");
+});
+
+getVehicleInformation("false");
 
 var pollServer = function() {
   setInterval(function() {
-    getVehicleInformation();
+    getVehicleInformation("false");
   }, 1000);
 };
 
 pollServer();
-
-var postBtn = $('.post-button');
-
-var trigger = false;
-
-postBtn.addEventListener('click', function(e) {
-  $.ajax({
-    type: 'POST',
-    url: url,
-    success: function(response) {
-      console.log(response);
-    }
-  });
-});

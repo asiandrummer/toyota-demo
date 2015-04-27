@@ -12,7 +12,10 @@
       </div>
     </div>
 
-    <button class="post-button">
+    <div class="status">
+    </div>
+
+    <button class="panic-button">
       EMERGENCY STOP PANIC BUTTON
     </button>
 

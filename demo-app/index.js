@@ -39,7 +39,9 @@ $('.panic-button').click(function(e) {
 getVehicleInformation("false");
 
 var pollServer = function() {
+  setInterval(function() {
     getVehicleInformation("false");
+  }, 1000);
 };
 
 pollServer();

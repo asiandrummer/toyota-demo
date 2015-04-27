@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="./toyota.css" />
   </head>
   <body>
     <div class="user-speed-container">

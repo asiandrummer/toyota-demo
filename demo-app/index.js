@@ -17,13 +17,14 @@ var getVehicleInformation = function(alertPressed) {
     },
     data: randSpeed + "," + alertPressed,
     success: function(response) {
-      console.log(response);
       response = JSON.parse(response);
       $('.content .names').html("vehicle names: " + response.names);
       $('.content .average-speed').html("average speed: " + response.average_speed);
-      if (response.hasAlert == "true") {
-        response.alertMessage && $('.status').html(response.alertMessage);
-      }
+
+      var statusMsg = response.alertMessage ?
+        response.alertMessage :
+        "";
+      $('.status').html(statusMsg);
     },
     error: function(response, t, e) {
       console.log(e);
@@ -38,9 +39,7 @@ $('.panic-button').click(function(e) {
 getVehicleInformation("false");
 
 var pollServer = function() {
-  setInterval(function() {
     getVehicleInformation("false");
-  }, 1000);
 };
 
 pollServer();

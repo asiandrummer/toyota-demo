@@ -24,3 +24,5 @@ Depending on what you did in #1, either start it up by:
 `sudo service tomcat7 start`
 
 or run: `{$APACHE_TOMCAT_UNPACKED_DIR}/bin/catalina.sh run`
+
+(Be sure to have IPv4Stack preferred on your tomcat server: -Djava.net.preferIPv4Stack=true)
